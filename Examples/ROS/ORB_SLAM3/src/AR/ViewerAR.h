@@ -26,6 +26,10 @@
 #include <string>
 #include"../../../include/System.h"
 
+#include <Eigen/Dense>
+#include <opencv2/core/eigen.hpp>
+
+
 namespace ORB_SLAM3
 {
 
