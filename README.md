@@ -244,3 +244,49 @@ A flag in `include\Config.h` activates time measurements. It is necessary to unc
 
 # 9. Calibration
 You can find a tutorial for visual-inertial calibration and a detailed description of the contents of valid configuration files at  `Calibration_Tutorial.pdf`
+
+
+<!-- 运行需更改相应的文件位置 -->
+./Examples/Monocular/mono_euroc ./Vocabulary/ORBvoc.txt ./Monocular/EuRoC.yaml /home/gtf/dataset/MH_01_easy ./Monocular/EuRoC_TimeStamps/MH01.txt dataset-MH01_mono
+
+./Examples/Stereo/stereo_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo/EuRoC.yaml /home/gtf/dataset/MH_01_easy ./Examples/Stereo/EuRoC_TimeStamps/MH01.txt dataset-MH01_stereo
+
+./Examples/Monocular-Inertial/mono_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Monocular-Inertial/EuRoC.yaml /home/gtf/dataset/MH_01_easy ./Examples/Monocular-Inertial/EuRoC_TimeStamps/MH01.txt dataset-MH01_monoi
+
+
+./Examples/Stereo-Inertial/stereo_inertial_euroc ./Vocabulary/ORBvoc.txt ./Examples/Stereo-Inertial/EuRoC.yaml /home/gtf/dataset/MH_01_easy ./Examples/Stereo-Inertial/EuRoC_TimeStamps/MH01.txt dataset-MH01_stereoi
+
+
+./Examples/Monocular/mono_tum_vi ./Vocabulary/ORBvoc.txt ./Examples/Monocular/TUM1.yaml /home/gtf/dataset/dataset-corridor4_512_16/mav0/cam1/data ./Examples/Monocular/TUM_TimeStamps/dataset-corridor4_512.txt
+
+./Examples/Stereo/stereo_tum_vi ../Vocabulary/ORBvoc.txt Stereo/TUM_512.yaml /home/gtf/dataset/dataset-room1_512_16/mav0/cam0/data /home/sangfor/2023/bro_ws/dataset-room1_512_16/mav0/cam1/data Stereo/TUM_TimeStamps/dataset-room1_512.txt dataset-room1_512_stereo
+
+
+./Examples/Monocular-Inertial/mono_inertial_tum_vi ../Vocabulary/ORBvoc.txt Monocular-Inertial/TUM_512.yaml /home/gtf/dataset/dataset-room1_512_16/mav0/cam0/data Monocular-Inertial/TUM_TimeStamps/dataset-room1_512.txt Monocular-Inertial/TUM_IMU/dataset-room1_512.txt dataset-room1_512_monoi
+
+RGB-D：
+./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUM1.yaml /home/gtf/dataset/rgbd_dataset_freiburg1_desk /home/gtf/rosCode/ORB_SLAM3_detailed_comments/Examples/RGB-D/associations/fr1_desk.txt
+
+
+纯单目
+rosrun orb_slam3 Mono /home/gtf/rosCode/ORB_SLAM3_detailed_comments/Vocabulary/ORBvoc.txt /home/gtf/rosCode/ORB_SLAM3_detailed_comments/Examples/Monocular/EuRoC.yaml
+rosbag play MH_01_easy.bag /cam0/image_raw:=/camera/image_raw
+
+纯双目：
+rosrun ORB_SLAM3 Stereo Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml false
+rosbag play MH_01_easy.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw
+
+
+单目惯导
+rosrun ORB_SLAM3 Mono_Inertial Vocabulary/ORBvoc.txt Examples/Monocular-Inertial/EuRoC.yaml
+rosbag play MH_01_easy.bag
+
+
+双目惯导：
+rosrun ORB_SLAM3 Stereo_Inertial Vocabulary/ORBvoc.txt Examples/Stereo-Inertial/EuRoC.yaml false
+rosbag play MH_01_easy.bag /cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw /imu0:=/imu
+
+RGB-D：
+rosrun ORB_SLAM3 RGBD /home/gtf/rosCode/ORB_SLAM3_detailed_comments/Vocabulary/ORBvoc.txt /home/gtf/rosCode/ORB_SLAM3_detailed_comments/Examples/RGB-D/TUM1.yaml
+rosbag play rgbd_dataset_freiburg1_xyz.bag
+rosbag play rgbd_dataset_freiburg1_desk.bag
